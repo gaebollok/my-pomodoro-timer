@@ -1,0 +1,1652 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <!-- SEO 메타 태그 -->
+    <title>나만의 포모도로 타이머</title>
+    <meta name="description" content="집중 작업, HIIT 운동, 명상을 위한 무료 커스텀 타이머. 포모도로 기법부터 인터벌 트레이닝까지 한 곳에서. 배경음악 지원, 5가지 알림음, 진행 상황 시각화. 회원가입 없이 바로 사용 가능.">
+    <meta name="keywords" content="포모도로 타이머, 뽀모도로, 공부 타이머, 운동 타이머, HIIT 타이머, 타바타 타이머, 명상 타이머, 온라인 타이머, 무료 타이머, 집중 타이머, 인터벌 타이머, 4-7-8 호흡, 박스 호흡, pomodoro timer, focus timer">
+    <meta name="author" content="똑딱타이머">
+    <meta name="robots" content="index, follow">
+    <link rel="canonical" href="https://yourdomain.com/">
+    
+    <!-- Open Graph (소셜 공유) -->
+    <meta property="og:type" content="website">
+    <meta property="og:site_name" content="똑딱타이머">
+    <meta property="og:title" content="똑딱타이머 - 무료 포모도로 & 운동 타이머">
+    <meta property="og:description" content="집중 작업, HIIT 운동, 명상을 위한 무료 커스텀 타이머. 회원가입 없이 바로 시작하세요.">
+    <meta property="og:url" content="https://yourdomain.com/">
+    <meta property="og:image" content="https://yourdomain.com/og-image.png">
+    
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="똑딱타이머 - 무료 포모도로 타이머">
+    <meta name="twitter:description" content="집중 작업, 운동, 명상을 위한 올인원 타이머">
+    <meta name="twitter:image" content="https://yourdomain.com/og-image.png">
+    
+    <!-- 구조화된 데이터 (JSON-LD) -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "WebApplication",
+      "name": "똑딱타이머",
+      "description": "집중 작업, HIIT 운동, 명상을 위한 무료 커스텀 타이머",
+      "url": "https://yourdomain.com/",
+      "applicationCategory": "ProductivityApplication",
+      "operatingSystem": "Any",
+      "offers": {
+        "@type": "Offer",
+        "price": "0",
+        "priceCurrency": "KRW"
+      },
+      "aggregateRating": {
+        "@type": "AggregateRating",
+        "ratingValue": "4.8",
+        "ratingCount": "1250"
+      }
+    }
+    </script>
+    
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Tailwind 설정 -->
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'deep-focus': {
+                            'bg': '#0f1117',
+                            'main': '#1a1d29',
+                            'accent': '#4a9eff',
+                        },
+                        'forest': {
+                            'bg': '#152820',
+                            'main': '#1e3a2f',
+                            'accent': '#5fb584',
+                        },
+                        'twilight': {
+                            'bg': '#1a1625',
+                            'main': '#2d2440',
+                            'accent': '#b088f9',
+                        },
+                        'warm': {
+                            'bg': '#1c1915',
+                            'main': '#2b2520',
+                            'accent': '#d4a574',
+                        },
+                        'ocean': {
+                            'bg': '#0f1821',
+                            'main': '#1a2836',
+                            'accent': '#3eb0c9',
+                        }
+                    },
+                    fontFamily: {
+                        'sans': ['Pretendard', 'Inter', 'system-ui', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
+    
+    <!-- 구글 폰트 -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&display=swap" rel="stylesheet">
+    
+    <style>
+        @import url('https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/static/pretendard.css');
+        
+        * {
+            font-family: 'Pretendard', 'Inter', system-ui, sans-serif;
+        }
+        
+        body {
+            margin: 0;
+            padding: 0;
+            transition: background-color 0.3s ease;
+        }
+        
+        .timer-display {
+            font-size: 96px;
+            font-weight: 700;
+            line-height: 1;
+            cursor: pointer;
+            user-select: none;
+            transition: all 0.2s;
+            position: relative;
+            display: inline-block;
+        }
+        
+        .timer-display:hover {
+            transform: scale(1.02);
+        }
+        
+        .timer-display:active {
+            transform: scale(0.98);
+        }
+        
+        /* 리플 이펙트 */
+        @keyframes ripple {
+            0% {
+                transform: scale(0);
+                opacity: 0.5;
+            }
+            100% {
+                transform: scale(4);
+                opacity: 0;
+            }
+        }
+        
+        .ripple {
+            position: absolute;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.4);
+            width: 100px;
+            height: 100px;
+            margin-top: -50px;
+            margin-left: -50px;
+            animation: ripple 0.8s ease-out;
+            pointer-events: none;
+        }
+        
+        /* 세그먼트 바 스타일 */
+        .segment {
+            transition: all 0.3s ease;
+            cursor: pointer;
+            position: relative;
+        }
+        
+        .segment:hover {
+            transform: scale(1.05);
+            filter: brightness(1.2);
+        }
+        
+        /* 툴팁 */
+        .tooltip {
+            visibility: hidden;
+            position: absolute;
+            bottom: 120%;
+            left: 50%;
+            transform: translateX(-50%);
+            background: rgba(0, 0, 0, 0.9);
+            color: white;
+            padding: 6px 12px;
+            border-radius: 6px;
+            font-size: 12px;
+            white-space: nowrap;
+            z-index: 1000;
+            opacity: 0;
+            transition: opacity 0.2s;
+        }
+        
+        .segment:hover .tooltip {
+            visibility: visible;
+            opacity: 1;
+        }
+        
+        .progress-bar {
+            transition: width 0.3s ease;
+        }
+        
+        #segment-progress > div {
+            transition: all 0.3s ease;
+        }
+        
+        .theme-btn {
+            transition: all 0.2s;
+        }
+        
+        .theme-btn:hover {
+            transform: scale(1.05);
+        }
+        
+        .tab-btn {
+            transition: all 0.2s;
+        }
+        
+        .tab-btn.active {
+            font-weight: 600;
+        }
+        
+        .preset-btn {
+            transition: all 0.2s;
+        }
+        
+        .preset-btn:hover {
+            transform: translateX(4px);
+        }
+        
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        
+        ::-webkit-scrollbar-track {
+            background: rgba(255, 255, 255, 0.05);
+        }
+        
+        ::-webkit-scrollbar-thumb {
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 4px;
+        }
+        
+        ::-webkit-scrollbar-thumb:hover {
+            background: rgba(255, 255, 255, 0.3);
+        }
+        
+        @media (max-width: 768px) {
+            .timer-display {
+                font-size: 64px;
+            }
+        }
+    </style>
+</head>
+<body class="bg-deep-focus-bg text-white min-h-screen" id="app-body">
+    
+    <!-- 상단 헤더 -->
+    <header class="px-6 py-4 flex justify-between items-center border-b border-white/10">
+        <div class="flex items-center gap-4">
+            <h1 class="text-2xl font-bold" data-i18n="appName">나만의 포모도로 타이머</h1>
+        </div>
+        
+        <div class="flex items-center gap-4">
+            <!-- 언어 전환 -->
+            <div class="flex gap-2 bg-white/5 rounded-lg p-1">
+                <button onclick="switchLanguage('ko')" 
+                        class="px-3 py-1 rounded transition" 
+                        id="lang-ko">한국어</button>
+                <button onclick="switchLanguage('en')" 
+                        class="px-3 py-1 rounded transition" 
+                        id="lang-en">English</button>
+            </div>
+            
+            <!-- 테마 선택 -->
+            <div class="flex gap-2">
+                <button onclick="setTheme('deep-focus')" 
+                        class="theme-btn w-8 h-8 rounded-full bg-deep-focus-accent" 
+                        title="Deep Focus"></button>
+                <button onclick="setTheme('forest')" 
+                        class="theme-btn w-8 h-8 rounded-full bg-forest-accent" 
+                        title="Forest Calm"></button>
+                <button onclick="setTheme('twilight')" 
+                        class="theme-btn w-8 h-8 rounded-full bg-twilight-accent" 
+                        title="Twilight"></button>
+                <button onclick="setTheme('warm')" 
+                        class="theme-btn w-8 h-8 rounded-full bg-warm-accent" 
+                        title="Warm Sepia"></button>
+                <button onclick="setTheme('ocean')" 
+                        class="theme-btn w-8 h-8 rounded-full bg-ocean-accent" 
+                        title="Ocean Deep"></button>
+            </div>
+            
+            <!-- 사운드 토글 -->
+            <button onclick="toggleSound()" id="sound-toggle"
+                    class="p-2 bg-white/10 hover:bg-white/20 rounded-lg transition" 
+                    title="알림음">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M19.114 5.636a9 9 0 010 12.728M16.463 8.288a5.25 5.25 0 010 7.424M6.75 8.25l4.72-4.72a.75.75 0 011.28.53v15.88a.75.75 0 01-1.28.53l-4.72-4.72H4.51c-.88 0-1.704-.507-1.938-1.354A9.01 9.01 0 012.25 12c0-.83.112-1.633.322-2.396C2.806 8.756 3.63 8.25 4.51 8.25H6.75z" />
+                </svg>
+            </button>
+            
+            <!-- 도움말 버튼 -->
+            <button onclick="toggleHelp()" 
+                    class="p-2 bg-white/10 hover:bg-white/20 rounded-lg transition"
+                    title="사용 방법">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M9.879 7.519c1.171-1.025 3.071-1.025 4.242 0 1.172 1.025 1.172 2.687 0 3.712-.203.179-.43.326-.67.442-.745.361-1.45.999-1.45 1.827v.75M21 12a9 9 0 11-18 0 9 9 0 0118 0zm-9 5.25h.008v.008H12v-.008z" />
+                </svg>
+            </button>
+            
+            <!-- 설정 버튼 -->
+            <button onclick="toggleSettings()" 
+                    class="px-4 py-2 bg-white/10 hover:bg-white/20 rounded-lg transition">
+                <span data-i18n="settings">설정</span>
+            </button>
+        </div>
+    </header>
+    
+    <!-- 메인 컨테이너 -->
+    <main class="flex flex-col lg:flex-row h-[calc(100vh-73px)]">
+        
+        <!-- 왼쪽: 메인 타이머 -->
+        <div class="flex-1 flex flex-col items-center justify-center p-8">
+            <!-- 상태 표시 -->
+            <div class="mb-8">
+                <div class="text-xl opacity-60" id="timer-status" data-i18n="focus">집중</div>
+            </div>
+            
+            <!-- 타이머 디스플레이 (클릭으로 일시정지/재생) -->
+            <div class="relative inline-block">
+                <div class="timer-display" id="timer-display" onclick="toggleTimerWithEffect(event)">
+                    25:00
+                </div>
+                
+                <!-- 일시정지 아이콘 -->
+                <div id="pause-icon" class="absolute inset-0 flex items-center justify-center opacity-0 transition-opacity duration-300 pointer-events-none">
+                    <div class="bg-black/60 backdrop-blur-sm rounded-2xl px-8 py-6">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="white" viewBox="0 0 24 24" class="w-16 h-16">
+                            <path d="M6 4h4v16H6V4zm8 0h4v16h-4V4z"/>
+                        </svg>
+                    </div>
+                </div>
+                
+                <!-- 재생 아이콘 (잠깐 표시) -->
+                <div id="play-icon" class="absolute inset-0 flex items-center justify-center opacity-0 transition-opacity duration-300 pointer-events-none">
+                    <div class="bg-black/60 backdrop-blur-sm rounded-2xl px-8 py-6">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="white" viewBox="0 0 24 24" class="w-16 h-16">
+                            <path d="M8 5v14l11-7z"/>
+                        </svg>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- 시작 힌트 -->
+            <div class="mt-4 text-sm opacity-40 transition-opacity duration-500" id="start-hint" data-i18n="clickToStart">
+                클릭하여 시작
+            </div>
+            
+            <!-- 모드 설명란 -->
+            <div class="mt-6 max-w-md text-center">
+                <p class="text-sm opacity-70 leading-relaxed" id="mode-description"></p>
+            </div>
+            
+            <!-- 리셋 버튼 -->
+            <div class="mt-8 flex gap-4">
+                <button onclick="resetTimer()" 
+                        class="px-6 py-3 bg-white/10 hover:bg-white/20 rounded-lg transition">
+                    <span data-i18n="reset">리셋</span>
+                </button>
+            </div>
+            
+            <!-- 진행 바 (세그먼트 형식) -->
+            <div class="w-full max-w-2xl mt-16">
+                <div class="mb-4">
+                    <div class="text-sm opacity-60 mb-2" data-i18n="progress">진행 상황</div>
+                    <!-- 세그먼트 진행 바 -->
+                    <div class="flex gap-1" id="segment-progress">
+                        <!-- JavaScript로 동적 생성 -->
+                    </div>
+                </div>
+                
+                <!-- 현재 단계 표시 -->
+                <div class="text-sm opacity-60" id="phase-display">
+                    <!-- JavaScript로 동적 생성 -->
+                </div>
+            </div>
+        </div>
+        
+        <!-- 오른쪽: 사이드바 -->
+        <div class="w-full lg:w-96 bg-white/5 border-l border-white/10 overflow-y-auto">
+            <div class="p-6">
+                <!-- 탭 메뉴 -->
+                <div class="flex gap-2 mb-6 border-b border-white/10">
+                    <button class="tab-btn px-4 py-2 active border-b-2 border-deep-focus-accent" 
+                            data-tab="pomodoro" onclick="switchTab('pomodoro')">
+                        <span data-i18n="pomodoro">포모도로</span>
+                    </button>
+                    <button class="tab-btn px-4 py-2 border-b-2 border-transparent" 
+                            data-tab="exercise" onclick="switchTab('exercise')">
+                        <span data-i18n="exercise">운동</span>
+                    </button>
+                    <button class="tab-btn px-4 py-2 border-b-2 border-transparent" 
+                            data-tab="meditation" onclick="switchTab('meditation')">
+                        <span data-i18n="meditation">명상</span>
+                    </button>
+                    <button class="tab-btn px-4 py-2 border-b-2 border-transparent" 
+                            data-tab="custom" onclick="switchTab('custom')">
+                        <span data-i18n="custom">Custom</span>
+                    </button>
+                </div>
+                
+                <!-- 포모도로 탭 -->
+                <div id="tab-pomodoro" class="tab-content">
+                    <h3 class="text-lg font-semibold mb-4" data-i18n="pomodoroPresets">포모도로 프리셋</h3>
+                    <div class="space-y-3">
+                        <button onclick="setPreset('pomo-easy')" 
+                                class="preset-btn w-full text-left p-4 bg-white/5 hover:bg-white/10 rounded-lg transition">
+                            <div class="font-medium" data-i18n="easy">여유 모드</div>
+                            <div class="text-sm opacity-60">15분 집중 / 5분 휴식</div>
+                        </button>
+                        
+                        <button onclick="setPreset('pomo-normal')" 
+                                class="preset-btn w-full text-left p-4 bg-white/5 hover:bg-white/10 rounded-lg transition">
+                            <div class="font-medium" data-i18n="normal">일반 모드</div>
+                            <div class="text-sm opacity-60">25분 집중 / 5분 휴식</div>
+                        </button>
+                        
+                        <button onclick="setPreset('pomo-focus')" 
+                                class="preset-btn w-full text-left p-4 bg-white/5 hover:bg-white/10 rounded-lg transition">
+                            <div class="font-medium" data-i18n="focus">집중 모드</div>
+                            <div class="text-sm opacity-60">50분 집중 / 10분 휴식</div>
+                        </button>
+                    </div>
+                </div>
+                
+                <!-- 운동 탭 -->
+                <div id="tab-exercise" class="tab-content hidden">
+                    <h3 class="text-lg font-semibold mb-4" data-i18n="exercisePresets">운동 타이머</h3>
+                    <div class="space-y-3">
+                        <button onclick="setPreset('hiit-beginner')" 
+                                class="preset-btn w-full text-left p-4 bg-white/5 hover:bg-white/10 rounded-lg transition">
+                            <div class="font-medium">HIIT 초급</div>
+                            <div class="text-sm opacity-60">30초 운동 / 30초 휴식 × 10</div>
+                        </button>
+                        
+                        <button onclick="setPreset('hiit-intermediate')" 
+                                class="preset-btn w-full text-left p-4 bg-white/5 hover:bg-white/10 rounded-lg transition">
+                            <div class="font-medium">HIIT 중급</div>
+                            <div class="text-sm opacity-60">40초 운동 / 20초 휴식 × 15</div>
+                        </button>
+                        
+                        <button onclick="setPreset('hiit-advanced')" 
+                                class="preset-btn w-full text-left p-4 bg-white/5 hover:bg-white/10 rounded-lg transition">
+                            <div class="font-medium">HIIT 고급</div>
+                            <div class="text-sm opacity-60">45초 운동 / 15초 휴식 × 20</div>
+                        </button>
+                        
+                        <button onclick="setPreset('tabata')" 
+                                class="preset-btn w-full text-left p-4 bg-white/5 hover:bg-white/10 rounded-lg transition">
+                            <div class="font-medium">Tabata</div>
+                            <div class="text-sm opacity-60">20초 운동 / 10초 휴식 × 8</div>
+                        </button>
+                    </div>
+                </div>
+                
+                <!-- 명상 탭 -->
+                <div id="tab-meditation" class="tab-content hidden">
+                    <h3 class="text-lg font-semibold mb-4" data-i18n="meditationPresets">명상 타이머</h3>
+                    <div class="space-y-3">
+                        <button onclick="setPreset('meditation-short')" 
+                                class="preset-btn w-full text-left p-4 bg-white/5 hover:bg-white/10 rounded-lg transition">
+                            <div class="font-medium">잡생각 정리</div>
+                            <div class="text-sm opacity-60">5분</div>
+                        </button>
+                        
+                        <button onclick="setPreset('meditation-breathing')" 
+                                class="preset-btn w-full text-left p-4 bg-white/5 hover:bg-white/10 rounded-lg transition">
+                            <div class="font-medium">심호흡 (4-7-8)</div>
+                            <div class="text-sm opacity-60">10분</div>
+                        </button>
+                        
+                        <button onclick="setPreset('meditation-medium')" 
+                                class="preset-btn w-full text-left p-4 bg-white/5 hover:bg-white/10 rounded-lg transition">
+                            <div class="font-medium">짧은 명상</div>
+                            <div class="text-sm opacity-60">15분</div>
+                        </button>
+                        
+                        <button onclick="setPreset('meditation-long')" 
+                                class="preset-btn w-full text-left p-4 bg-white/5 hover:bg-white/10 rounded-lg transition">
+                            <div class="font-medium">긴 명상</div>
+                            <div class="text-sm opacity-60">30분</div>
+                        </button>
+                    </div>
+                </div>
+                
+                <!-- Custom 탭 -->
+                <div id="tab-custom" class="tab-content hidden">
+                    <h3 class="text-lg font-semibold mb-4" data-i18n="customSettings">사용자 설정</h3>
+                    <div class="space-y-4">
+                        <div>
+                            <label class="block text-sm mb-2" data-i18n="workTime">작업 시간 (분)</label>
+                            <input type="number" id="custom-work" value="25" min="1" max="120"
+                                   class="w-full px-4 py-2 bg-white/10 rounded-lg border border-white/20 focus:border-deep-focus-accent outline-none">
+                        </div>
+                        
+                        <div>
+                            <label class="block text-sm mb-2" data-i18n="breakTime">휴식 시간 (분)</label>
+                            <input type="number" id="custom-break" value="5" min="1" max="60"
+                                   class="w-full px-4 py-2 bg-white/10 rounded-lg border border-white/20 focus:border-deep-focus-accent outline-none">
+                        </div>
+                        
+                        <div>
+                            <label class="block text-sm mb-2" data-i18n="cycles">사이클 반복 (회)</label>
+                            <input type="number" id="custom-cycles" value="4" min="1" max="10"
+                                   class="w-full px-4 py-2 bg-white/10 rounded-lg border border-white/20 focus:border-deep-focus-accent outline-none">
+                        </div>
+                        
+                        <div>
+                            <label class="block text-sm mb-2" data-i18n="longBreakTime">긴 휴식 시간 (분)</label>
+                            <input type="number" id="custom-long-break" value="15" min="1" max="60"
+                                   class="w-full px-4 py-2 bg-white/10 rounded-lg border border-white/20 focus:border-deep-focus-accent outline-none">
+                        </div>
+                        
+                        <button onclick="applyCustomSettings()" 
+                                class="w-full px-4 py-3 bg-deep-focus-accent hover:opacity-80 rounded-lg transition font-medium">
+                            <span data-i18n="apply">적용하기</span>
+                        </button>
+                    </div>
+                </div>
+                
+                <!-- YouTube 배경음 (모든 탭 공통) -->
+                <div class="pt-6 mt-6 border-t border-white/10">
+                    <h4 class="font-semibold mb-3">배경음</h4>
+                    
+                    <div>
+                        <label class="block text-sm mb-2 opacity-80">YouTube URL</label>
+                        <input type="text" id="youtube-url" placeholder="https://youtube.com/watch?v=..."
+                               class="w-full px-4 py-2 bg-white/10 rounded-lg border border-white/20 focus:border-deep-focus-accent outline-none text-sm">
+                    </div>
+                    
+                    <button onclick="loadYouTube()" 
+                            class="w-full mt-3 px-4 py-2 bg-deep-focus-accent hover:opacity-80 rounded-lg transition text-sm font-medium">
+                        음악 불러오기
+                    </button>
+                    
+                    <!-- YouTube 플레이어 -->
+                    <div id="youtube-player" class="hidden mt-3">
+                        <div class="aspect-video bg-black rounded-lg overflow-hidden">
+                            <iframe id="youtube-iframe" 
+                                    width="100%" 
+                                    height="100%" 
+                                    src="" 
+                                    frameborder="0" 
+                                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
+                                    allowfullscreen>
+                            </iframe>
+                        </div>
+                        
+                        <button onclick="clearYouTube()" 
+                                class="w-full mt-2 px-4 py-2 bg-red-500/20 hover:bg-red-500/30 rounded-lg transition text-sm">
+                            음악 제거
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+    
+    <!-- 설정 모달 -->
+    <div id="settings-modal" class="fixed inset-0 bg-black/50 hidden items-center justify-center z-50">
+        <div class="bg-deep-focus-main p-8 rounded-lg max-w-md w-full mx-4 max-h-[90vh] overflow-y-auto">
+            <h2 class="text-2xl font-bold mb-6" data-i18n="settings">설정</h2>
+            
+            <div class="space-y-4">
+                <!-- 알림음 설정 -->
+                <div class="pb-4 border-b border-white/10">
+                    <h3 class="font-semibold mb-3">알림음</h3>
+                    
+                    <div class="space-y-2">
+                        <label class="flex items-center justify-between p-3 bg-white/5 hover:bg-white/10 rounded-lg cursor-pointer transition">
+                            <div class="flex items-center">
+                                <input type="radio" name="sound" value="bell" checked onchange="changeSound('bell')" class="mr-3">
+                                <span>클래식 벨</span>
+                            </div>
+                            <button onclick="event.stopPropagation(); testSound('bell')" 
+                                    class="px-3 py-1 bg-deep-focus-accent hover:opacity-80 rounded text-xs">
+                                테스트
+                            </button>
+                        </label>
+                        
+                        <label class="flex items-center justify-between p-3 bg-white/5 hover:bg-white/10 rounded-lg cursor-pointer transition">
+                            <div class="flex items-center">
+                                <input type="radio" name="sound" value="digital" onchange="changeSound('digital')" class="mr-3">
+                                <span>디지털 비프</span>
+                            </div>
+                            <button onclick="event.stopPropagation(); testSound('digital')" 
+                                    class="px-3 py-1 bg-deep-focus-accent hover:opacity-80 rounded text-xs">
+                                테스트
+                            </button>
+                        </label>
+                        
+                        <label class="flex items-center justify-between p-3 bg-white/5 hover:bg-white/10 rounded-lg cursor-pointer transition">
+                            <div class="flex items-center">
+                                <input type="radio" name="sound" value="chime" onchange="changeSound('chime')" class="mr-3">
+                                <span>소프트 차임</span>
+                            </div>
+                            <button onclick="event.stopPropagation(); testSound('chime')" 
+                                    class="px-3 py-1 bg-deep-focus-accent hover:opacity-80 rounded text-xs">
+                                테스트
+                            </button>
+                        </label>
+                        
+                        <label class="flex items-center justify-between p-3 bg-white/5 hover:bg-white/10 rounded-lg cursor-pointer transition">
+                            <div class="flex items-center">
+                                <input type="radio" name="sound" value="alarm" onchange="changeSound('alarm')" class="mr-3">
+                                <span>긴급 알람</span>
+                            </div>
+                            <button onclick="event.stopPropagation(); testSound('alarm')" 
+                                    class="px-3 py-1 bg-deep-focus-accent hover:opacity-80 rounded text-xs">
+                                테스트
+                            </button>
+                        </label>
+                        
+                        <label class="flex items-center justify-between p-3 bg-white/5 hover:bg-white/10 rounded-lg cursor-pointer transition">
+                            <div class="flex items-center">
+                                <input type="radio" name="sound" value="gong" onchange="changeSound('gong')" class="mr-3">
+                                <span>명상 공</span>
+                            </div>
+                            <button onclick="event.stopPropagation(); testSound('gong')" 
+                                    class="px-3 py-1 bg-deep-focus-accent hover:opacity-80 rounded text-xs">
+                                테스트
+                            </button>
+                        </label>
+                    </div>
+                </div>
+                
+                <div class="pt-4 border-t border-white/10">
+                    <h3 class="font-semibold mb-3" data-i18n="exportSettings">설정 내보내기</h3>
+                    <button onclick="exportSettings()" 
+                            class="w-full px-4 py-2 bg-white/10 hover:bg-white/20 rounded-lg transition mb-2">
+                        <span data-i18n="export">코드 생성</span>
+                    </button>
+                    <input type="text" id="import-code" placeholder="코드 입력..."
+                           class="w-full px-4 py-2 bg-white/10 rounded-lg border border-white/20 mb-2">
+                    <button onclick="importSettings()" 
+                            class="w-full px-4 py-2 bg-white/10 hover:bg-white/20 rounded-lg transition">
+                        <span data-i18n="import">불러오기</span>
+                    </button>
+                </div>
+            </div>
+            
+            <button onclick="toggleSettings()" 
+                    class="mt-6 w-full px-4 py-2 bg-deep-focus-accent hover:opacity-80 rounded-lg transition">
+                <span data-i18n="close">닫기</span>
+            </button>
+        </div>
+    </div>
+    
+    <!-- 도움말 모달 -->
+    <div id="help-modal" class="fixed inset-0 bg-black/50 hidden items-center justify-center z-50">
+        <div class="bg-deep-focus-main p-8 rounded-lg max-w-2xl w-full mx-4 max-h-[90vh] overflow-y-auto">
+            <h2 class="text-2xl font-bold mb-6">나만의 포모도로 타이머 사용 방법</h2>
+            
+            <div class="space-y-6">
+                <!-- 포모도로 -->
+                <div class="border-b border-white/10 pb-4">
+                    <h3 class="text-lg font-semibold mb-2">🍅 포모도로 타이머</h3>
+                    <p class="text-sm opacity-80 leading-relaxed">
+                        작업 집중 시간과 휴식 시간을 반복하는 시간 관리 기법입니다. 
+                        25분 집중 → 5분 휴식을 4회 반복 후 긴 휴식(15분)을 갖습니다.
+                        <br><br>
+                        <strong>여유 모드:</strong> 50분 집중, 10분 휴식 (장시간 작업)<br>
+                        <strong>일반 모드:</strong> 25분 집중, 5분 휴식 (표준)
+                    </p>
+                </div>
+                
+                <!-- 운동 -->
+                <div class="border-b border-white/10 pb-4">
+                    <h3 class="text-lg font-semibold mb-2">💪 운동 타이머</h3>
+                    <p class="text-sm opacity-80 leading-relaxed mb-3">
+                        인터벌 트레이닝을 위한 타이머입니다. 운동과 휴식을 교대로 반복합니다.
+                    </p>
+                    <div class="bg-white/5 p-3 rounded text-sm space-y-2">
+                        <div><strong>HIIT 기본:</strong> 40초 운동 → 20초 휴식 (고강도 인터벌)</div>
+                        <div><strong>타바타:</strong> 20초 전력 운동 → 10초 휴식 (초고강도)</div>
+                        <div><strong>서킷:</strong> 60초 운동 → 30초 휴식 (근력 운동)</div>
+                    </div>
+                </div>
+                
+                <!-- 명상 -->
+                <div class="border-b border-white/10 pb-4">
+                    <h3 class="text-lg font-semibold mb-2">🧘 명상 타이머</h3>
+                    <p class="text-sm opacity-80 leading-relaxed mb-3">
+                        호흡과 휴식을 통해 마음을 정리하는 시간입니다.
+                    </p>
+                    <div class="bg-white/5 p-3 rounded text-sm space-y-2">
+                        <div><strong>4-7-8 호흡:</strong> 4초 들숨 → 7초 숨 참기 → 8초 날숨</div>
+                        <div><strong>박스 호흡:</strong> 4초 들숨 → 4초 참기 → 4초 날숨 → 4초 참기</div>
+                        <div><strong>짧은 명상:</strong> 5분 동안 호흡에 집중</div>
+                        <div><strong>긴 명상:</strong> 15분 동안 깊은 명상</div>
+                    </div>
+                </div>
+                
+                <!-- 사용 팁 -->
+                <div>
+                    <h3 class="text-lg font-semibold mb-2">💡 사용 팁</h3>
+                    <ul class="text-sm opacity-80 leading-relaxed space-y-2">
+                        <li>• 화면을 클릭하면 타이머가 시작/일시정지됩니다</li>
+                        <li>• 배경음악은 사이드바 하단에서 YouTube URL을 입력하세요</li>
+                        <li>• 알림음은 설정에서 5가지 중 선택할 수 있습니다</li>
+                        <li>• Custom 탭에서 원하는 시간을 자유롭게 설정하세요</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <button onclick="toggleHelp()" 
+                    class="mt-6 w-full px-4 py-2 bg-deep-focus-accent hover:opacity-80 rounded-lg transition">
+                닫기
+            </button>
+        </div>
+    </div>
+    
+    <script>
+        // 다국어 번역
+        const translations = {
+            ko: {
+                appName: '나만의 포모도로 타이머',
+                settings: '설정',
+                focus: '집중',
+                break: '휴식',
+                longBreak: '긴 휴식',
+                reset: '리셋',
+                progress: '진행 상황',
+                cycle: '사이클',
+                pomodoro: '포모도로',
+                exercise: '운동',
+                meditation: '명상',
+                custom: 'Custom',
+                pomodoroPresets: '포모도로 프리셋',
+                easy: '여유 모드',
+                normal: '일반 모드',
+                exercisePresets: '운동 타이머',
+                meditationPresets: '명상 타이머',
+                customSettings: '사용자 설정',
+                workTime: '작업 시간 (분)',
+                breakTime: '휴식 시간 (분)',
+                cycles: '사이클 반복 (회)',
+                longBreakTime: '긴 휴식 시간 (분)',
+                apply: '적용하기',
+                backgroundMusic: '배경음',
+                loadMusic: '음악 불러오기',
+                clearMusic: '음악 제거',
+                youtubeUrl: 'YouTube URL',
+                soundEnabled: '알림음 활성화',
+                volume: '볼륨',
+                exportSettings: '설정 내보내기',
+                export: '코드 생성',
+                import: '불러오기',
+                clickToStart: '클릭하여 시작',
+                confirmJump: '타이머를 중지하고 이동하시겠습니까?',
+                enterYouTubeUrl: 'YouTube URL을 입력해주세요.',
+                invalidYouTubeUrl: '올바른 YouTube URL을 입력해주세요.'
+            },
+            en: {
+                appName: 'My Pomodoro Timer',
+                settings: 'Settings',
+                focus: 'Focus',
+                break: 'Break',
+                longBreak: 'Long Break',
+                reset: 'Reset',
+                progress: 'Progress',
+                cycle: 'Cycle',
+                pomodoro: 'Pomodoro',
+                exercise: 'Exercise',
+                meditation: 'Meditation',
+                custom: 'Custom',
+                pomodoroPresets: 'Pomodoro Presets',
+                easy: 'Easy Mode',
+                normal: 'Normal Mode',
+                exercisePresets: 'Exercise Timer',
+                meditationPresets: 'Meditation Timer',
+                customSettings: 'Custom Settings',
+                workTime: 'Work Time (min)',
+                breakTime: 'Break Time (min)',
+                cycles: 'Cycles',
+                longBreakTime: 'Long Break Time (min)',
+                apply: 'Apply',
+                backgroundMusic: 'Background Music',
+                loadMusic: 'Load Music',
+                clearMusic: 'Clear Music',
+                youtubeUrl: 'YouTube URL',
+                soundEnabled: 'Sound Enabled',
+                volume: 'Volume',
+                exportSettings: 'Export Settings',
+                export: 'Generate Code',
+                import: 'Import',
+                close: 'Close',
+                clickToStart: 'Click to start',
+                confirmJump: 'Stop timer and jump to this phase?',
+                enterYouTubeUrl: 'Please enter YouTube URL.',
+                invalidYouTubeUrl: 'Please enter a valid YouTube URL.'
+            }
+        };
+        
+        // 타이머 상태
+        let currentLang = 'ko';
+        let currentTheme = 'deep-focus';
+        let soundEnabled = true;
+        let timerState = {
+            isRunning: false,
+            currentTime: 25 * 60, // 초 단위
+            workTime: 25,
+            breakTime: 5,
+            longBreakTime: 15,
+            cycles: 4,
+            currentCycle: 1,
+            isBreak: false,
+            isLongBreak: false,
+            currentPhaseIndex: 0 // 전체 진행에서 현재 위치
+        };
+        let timerInterval = null;
+        
+        // 프리셋 정의
+        const presets = {
+            'pomo-easy': { work: 15, break: 5, longBreak: 20, cycles: 4 },
+            'pomo-normal': { work: 25, break: 5, longBreak: 15, cycles: 4 },
+            'pomo-focus': { work: 50, break: 10, longBreak: 30, cycles: 3 },
+            'hiit-beginner': { work: 0.5, break: 0.5, longBreak: 1, cycles: 10 },
+            'hiit-intermediate': { work: 0.67, break: 0.33, longBreak: 1.5, cycles: 15 },
+            'hiit-advanced': { work: 0.75, break: 0.25, longBreak: 1, cycles: 20 },
+            'tabata': { work: 0.33, break: 0.17, longBreak: 2, cycles: 8 },
+            'meditation-short': { work: 5, break: 0, longBreak: 0, cycles: 1 },
+            'meditation-breathing': { work: 10, break: 0, longBreak: 0, cycles: 1 },
+            'meditation-medium': { work: 15, break: 0, longBreak: 0, cycles: 1 },
+            'meditation-long': { work: 30, break: 0, longBreak: 0, cycles: 1 }
+        };
+        
+        // 프리셋 설명
+        const presetDescriptions = {
+            'pomo-easy': '15분 집중, 5분 휴식을 4회 반복 후 20분 긴 휴식',
+            'pomo-normal': '25분 집중, 5분 휴식을 4회 반복 후 15분 긴 휴식',
+            'pomo-focus': '50분 집중, 10분 휴식을 3회 반복 후 30분 긴 휴식',
+            'hiit-beginner': '30초 운동, 30초 휴식 반복 (초보자용 저강도)',
+            'hiit-intermediate': '40초 운동, 20초 휴식 반복 (중급자용 중강도)',
+            'hiit-advanced': '45초 운동, 15초 휴식 반복 (상급자용 고강도)',
+            'tabata': '20초 전력 운동, 10초 휴식 반복 (초고강도 인터벌)',
+            'meditation-short': '5분 동안 호흡에 집중하며 마음을 정리하세요',
+            'meditation-breathing': '4-7-8 호흡: 4초 들숨 → 7초 멈춤 → 8초 날숨 반복',
+            'meditation-medium': '15분 동안 깊은 명상으로 마음을 정화하세요',
+            'meditation-long': '30분 동안 완전한 명상 상태로 진입하세요'
+        };
+        
+        // 모드 설명 업데이트
+        function updateModeDescription(presetKey) {
+            const descElement = document.getElementById('mode-description');
+            if (presetDescriptions[presetKey]) {
+                descElement.textContent = presetDescriptions[presetKey];
+            } else {
+                descElement.textContent = '';
+            }
+        }
+        
+        // 초기화
+        function init() {
+            loadSettings();
+            updateDisplay();
+            updateSegmentProgress();
+            updateSoundIcon();
+            updateModeDescription('pomo-normal'); // 기본 프리셋 설명 표시
+        }
+        
+        // 사운드 토글
+        function toggleSound() {
+            soundEnabled = !soundEnabled;
+            updateSoundIcon();
+            saveSettings();
+        }
+        
+        // 사운드 아이콘 업데이트
+        function updateSoundIcon() {
+            const btn = document.getElementById('sound-toggle');
+            if (soundEnabled) {
+                btn.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M19.114 5.636a9 9 0 010 12.728M16.463 8.288a5.25 5.25 0 010 7.424M6.75 8.25l4.72-4.72a.75.75 0 011.28.53v15.88a.75.75 0 01-1.28.53l-4.72-4.72H4.51c-.88 0-1.704-.507-1.938-1.354A9.01 9.01 0 012.25 12c0-.83.112-1.633.322-2.396C2.806 8.756 3.63 8.25 4.51 8.25H6.75z" />
+                </svg>`;
+                btn.classList.remove('opacity-50');
+            } else {
+                btn.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M17.25 9.75L19.5 12m0 0l2.25 2.25M19.5 12l2.25-2.25M19.5 12l-2.25 2.25m-10.5-6l4.72-4.72a.75.75 0 011.28.53v15.88a.75.75 0 01-1.28.53l-4.72-4.72H4.51c-.88 0-1.704-.507-1.938-1.354A9.01 9.01 0 012.25 12c0-.83.112-1.633.322-2.396C2.806 8.756 3.63 8.25 4.51 8.25H6.75z" />
+                </svg>`;
+                btn.classList.add('opacity-50');
+            }
+        }
+        
+        // 언어 전환
+        function switchLanguage(lang) {
+            currentLang = lang;
+            document.querySelectorAll('[data-i18n]').forEach(el => {
+                const key = el.getAttribute('data-i18n');
+                if (translations[lang][key]) {
+                    el.textContent = translations[lang][key];
+                }
+            });
+            
+            // 언어 버튼 활성화 표시
+            document.getElementById('lang-ko').classList.toggle('bg-white/20', lang === 'ko');
+            document.getElementById('lang-en').classList.toggle('bg-white/20', lang === 'en');
+            
+            saveSettings();
+        }
+        
+        // 테마 전환
+        function setTheme(theme) {
+            currentTheme = theme;
+            const body = document.getElementById('app-body');
+            body.className = `bg-${theme}-bg text-white min-h-screen`;
+            
+            // 진행 바 다시 렌더링
+            updateSegmentProgress();
+            
+            saveSettings();
+        }
+        
+        // 탭 전환
+        function switchTab(tabName) {
+            // 모든 탭 비활성화
+            document.querySelectorAll('.tab-btn').forEach(btn => {
+                btn.classList.remove('active', `border-${currentTheme}-accent`);
+                btn.classList.add('border-transparent');
+            });
+            document.querySelectorAll('.tab-content').forEach(content => {
+                content.classList.add('hidden');
+            });
+            
+            // 선택된 탭 활성화
+            const selectedBtn = document.querySelector(`[data-tab="${tabName}"]`);
+            selectedBtn.classList.add('active', `border-${currentTheme}-accent`);
+            selectedBtn.classList.remove('border-transparent');
+            document.getElementById(`tab-${tabName}`).classList.remove('hidden');
+        }
+        
+        // 프리셋 설정
+        function setPreset(presetName) {
+            const preset = presets[presetName];
+            timerState.workTime = preset.work;
+            timerState.breakTime = preset.break;
+            timerState.longBreakTime = preset.longBreak;
+            timerState.cycles = preset.cycles;
+            timerState.currentCycle = 1;
+            timerState.isBreak = false;
+            timerState.isLongBreak = false;
+            timerState.currentTime = preset.work * 60;
+            timerState.currentPhaseIndex = 0;
+            
+            resetTimer();
+            updateDisplay();
+            updateSegmentProgress();
+            updateModeDescription(presetName); // 설명 업데이트
+        }
+        
+        // Custom 설정 적용
+        function applyCustomSettings() {
+            const work = parseInt(document.getElementById('custom-work').value);
+            const breakTime = parseInt(document.getElementById('custom-break').value);
+            const cycles = parseInt(document.getElementById('custom-cycles').value);
+            const longBreak = parseInt(document.getElementById('custom-long-break').value);
+            
+            timerState.workTime = work;
+            timerState.breakTime = breakTime;
+            timerState.longBreakTime = longBreak;
+            timerState.cycles = cycles;
+            timerState.currentCycle = 1;
+            timerState.isBreak = false;
+            timerState.isLongBreak = false;
+            timerState.currentTime = work * 60;
+            timerState.currentPhaseIndex = 0;
+            
+            resetTimer();
+            updateDisplay();
+            updateSegmentProgress();
+            updateModeDescription(''); // Custom은 설명 없음
+        }
+        
+        // 타이머 토글 (리플 이펙트 포함)
+        function toggleTimerWithEffect(event) {
+            // 리플 이펙트 생성
+            const timer = document.getElementById('timer-display');
+            const ripple = document.createElement('span');
+            ripple.className = 'ripple';
+            
+            // 클릭 위치 계산
+            const rect = timer.getBoundingClientRect();
+            const x = event.clientX - rect.left;
+            const y = event.clientY - rect.top;
+            
+            ripple.style.left = x + 'px';
+            ripple.style.top = y + 'px';
+            
+            timer.appendChild(ripple);
+            
+            // 애니메이션 후 제거
+            setTimeout(() => ripple.remove(), 800);
+            
+            // 힌트 숨기기
+            const hint = document.getElementById('start-hint');
+            if (hint) {
+                hint.style.opacity = '0';
+                setTimeout(() => hint.style.display = 'none', 500);
+            }
+            
+            // 타이머 토글
+            toggleTimer();
+        }
+        
+        // 타이머 토글
+        function toggleTimer() {
+            if (timerState.isRunning) {
+                pauseTimer();
+            } else {
+                startTimer();
+            }
+        }
+        
+        // 특정 단계로 점프
+        function jumpToPhase(phaseIndex) {
+            if (timerState.isRunning) {
+                if (!confirm(translations[currentLang].confirmJump || '타이머를 중지하고 이동하시겠습니까?')) {
+                    return;
+                }
+                pauseTimer();
+            }
+            
+            // 단계 정보 재구성
+            const phases = [];
+            for (let i = 0; i < timerState.cycles; i++) {
+                phases.push({ type: 'work', duration: timerState.workTime });
+                if (i < timerState.cycles - 1) {
+                    phases.push({ type: 'break', duration: timerState.breakTime });
+                }
+            }
+            if (timerState.longBreakTime > 0) {
+                phases.push({ type: 'longBreak', duration: timerState.longBreakTime });
+            }
+            
+            const targetPhase = phases[phaseIndex];
+            if (!targetPhase) return;
+            
+            timerState.currentPhaseIndex = phaseIndex;
+            timerState.currentTime = targetPhase.duration * 60;
+            
+            // 사이클 번호와 상태 계산
+            let workCount = 0;
+            let breakCount = 0;
+            for (let i = 0; i <= phaseIndex; i++) {
+                if (phases[i].type === 'work') workCount++;
+                else if (phases[i].type === 'break') breakCount++;
+            }
+            
+            timerState.currentCycle = workCount;
+            timerState.isBreak = targetPhase.type === 'break';
+            timerState.isLongBreak = targetPhase.type === 'longBreak';
+            
+            updateDisplay();
+            updateSegmentProgress();
+        }
+        
+        // 타이머 시작
+        function startTimer() {
+            timerState.isRunning = true;
+            
+            // 재생 아이콘 잠깐 표시
+            showPlayIcon();
+            
+            timerInterval = setInterval(() => {
+                timerState.currentTime--;
+                updateDisplay();
+                updateSegmentProgress();
+                
+                if (timerState.currentTime <= 0) {
+                    playNotification();
+                    nextPhase();
+                }
+            }, 1000);
+        }
+        
+        // 타이머 일시정지
+        function pauseTimer() {
+            timerState.isRunning = false;
+            if (timerInterval) {
+                clearInterval(timerInterval);
+                timerInterval = null;
+            }
+            
+            // 일시정지 아이콘 표시
+            showPauseIcon();
+        }
+        
+        // 일시정지 아이콘 표시
+        function showPauseIcon() {
+            const pauseIcon = document.getElementById('pause-icon');
+            const playIcon = document.getElementById('play-icon');
+            
+            playIcon.style.opacity = '0';
+            pauseIcon.style.opacity = '1';
+        }
+        
+        // 재생 아이콘 잠깐 표시 후 사라짐
+        function showPlayIcon() {
+            const pauseIcon = document.getElementById('pause-icon');
+            const playIcon = document.getElementById('play-icon');
+            
+            pauseIcon.style.opacity = '0';
+            playIcon.style.opacity = '1';
+            
+            // 1초 후 사라짐
+            setTimeout(() => {
+                playIcon.style.opacity = '0';
+            }, 1000);
+        }
+        
+        // 타이머 리셋
+        function resetTimer() {
+            pauseTimer();
+            timerState.currentCycle = 1;
+            timerState.isBreak = false;
+            timerState.isLongBreak = false;
+            timerState.currentTime = timerState.workTime * 60;
+            timerState.currentPhaseIndex = 0;
+            updateDisplay();
+            updateSegmentProgress();
+        }
+        
+        // 다음 단계
+        function nextPhase() {
+            if (timerState.isLongBreak) {
+                // 긴 휴식 후 -> 다시 작업
+                timerState.currentCycle = 1;
+                timerState.isBreak = false;
+                timerState.isLongBreak = false;
+                timerState.currentTime = timerState.workTime * 60;
+                timerState.currentPhaseIndex = 0;
+            } else if (timerState.isBreak) {
+                // 짧은 휴식 후 -> 다음 사이클
+                timerState.currentCycle++;
+                timerState.isBreak = false;
+                timerState.currentTime = timerState.workTime * 60;
+                timerState.currentPhaseIndex++;
+            } else {
+                // 작업 후 -> 휴식
+                if (timerState.currentCycle >= timerState.cycles) {
+                    // 마지막 사이클 -> 긴 휴식
+                    timerState.isLongBreak = true;
+                    timerState.currentTime = timerState.longBreakTime * 60;
+                    timerState.currentPhaseIndex++;
+                } else {
+                    // 짧은 휴식
+                    timerState.isBreak = true;
+                    timerState.currentTime = timerState.breakTime * 60;
+                    timerState.currentPhaseIndex++;
+                }
+            }
+            
+            updateDisplay();
+            updateSegmentProgress();
+        }
+        
+        // 디스플레이 업데이트
+        function updateDisplay() {
+            const minutes = Math.floor(timerState.currentTime / 60);
+            const seconds = timerState.currentTime % 60;
+            const timeString = `${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
+            
+            document.getElementById('timer-display').textContent = timeString;
+            
+            // 상태 표시
+            let statusKey = 'focus';
+            if (timerState.isLongBreak) {
+                statusKey = 'longBreak';
+            } else if (timerState.isBreak) {
+                statusKey = 'break';
+            }
+            document.getElementById('timer-status').setAttribute('data-i18n', statusKey);
+            document.getElementById('timer-status').textContent = translations[currentLang][statusKey];
+        }
+        
+        // 세그먼트 진행 바 업데이트
+        function updateSegmentProgress() {
+            const container = document.getElementById('segment-progress');
+            const phaseDisplay = document.getElementById('phase-display');
+            
+            // 전체 단계 구성 생성 (버그 수정)
+            const phases = [];
+            for (let i = 0; i < timerState.cycles; i++) {
+                phases.push({ 
+                    type: 'work', 
+                    duration: timerState.workTime,
+                    label: `${translations[currentLang].cycle} ${i + 1} - ${translations[currentLang].focus}`
+                });
+                
+                // 마지막 사이클이 아니면 짧은 휴식 추가
+                if (i < timerState.cycles - 1) {
+                    phases.push({ 
+                        type: 'break', 
+                        duration: timerState.breakTime,
+                        label: `${translations[currentLang].cycle} ${i + 1} - ${translations[currentLang].break}`
+                    });
+                }
+            }
+            
+            // 마지막에 긴 휴식 추가
+            if (timerState.longBreakTime > 0) {
+                phases.push({ 
+                    type: 'longBreak', 
+                    duration: timerState.longBreakTime,
+                    label: translations[currentLang].longBreak
+                });
+            }
+            
+            // 세그먼트 HTML 생성
+            let segmentsHTML = '';
+            let totalDuration = phases.reduce((sum, p) => sum + p.duration, 0);
+            
+            phases.forEach((phase, index) => {
+                const widthPercent = (phase.duration / totalDuration) * 100;
+                const isCurrent = index === timerState.currentPhaseIndex;
+                
+                // 기본 색상 (미완료 - 투명도 높게)
+                let bgColor, completedColor, activeColor;
+                
+                if (phase.type === 'work') {
+                    bgColor = `bg-${currentTheme}-accent/20`; // 미완료
+                    completedColor = `bg-${currentTheme}-accent/50`; // 완료
+                    activeColor = `bg-${currentTheme}-accent`; // 현재
+                } else if (phase.type === 'break') {
+                    bgColor = 'bg-green-500/20';
+                    completedColor = 'bg-green-500/50';
+                    activeColor = 'bg-green-500';
+                } else {
+                    bgColor = 'bg-blue-500/20';
+                    completedColor = 'bg-blue-500/50';
+                    activeColor = 'bg-blue-500';
+                }
+                
+                let finalColor = bgColor;
+                let borderClass = '';
+                let progressHTML = '';
+                
+                if (index < timerState.currentPhaseIndex) {
+                    // 완료된 단계
+                    finalColor = completedColor;
+                } else if (isCurrent) {
+                    // 현재 진행 중
+                    finalColor = activeColor;
+                    borderClass = 'ring-2 ring-white/60 ring-offset-2 ring-offset-transparent';
+                    
+                    // 현재 단계 내 진행률 표시
+                    const currentProgress = ((phase.duration * 60 - timerState.currentTime) / (phase.duration * 60)) * 100;
+                    progressHTML = `
+                        <div class="absolute inset-0 ${bgColor}"></div>
+                        <div class="${activeColor} h-full transition-all duration-300" style="width: ${currentProgress}%"></div>
+                    `;
+                } else {
+                    // 미완료 단계
+                    finalColor = bgColor;
+                }
+                
+                segmentsHTML += `
+                    <div class="segment h-4 rounded-sm ${borderClass} relative overflow-hidden" 
+                         style="width: ${widthPercent}%"
+                         onclick="jumpToPhase(${index})"
+                         title="${phase.label}">
+                        ${progressHTML || `<div class="${finalColor} h-full"></div>`}
+                        <div class="tooltip">${phase.label}</div>
+                    </div>
+                `;
+            });
+            
+            container.innerHTML = segmentsHTML;
+            
+            // 현재 단계 텍스트 표시
+            let phaseText = '';
+            if (timerState.isLongBreak) {
+                phaseText = `${translations[currentLang].longBreak}`;
+            } else if (timerState.isBreak) {
+                phaseText = `${translations[currentLang].cycle} ${timerState.currentCycle} - ${translations[currentLang].break}`;
+            } else {
+                phaseText = `${translations[currentLang].cycle} ${timerState.currentCycle}/${timerState.cycles} - ${translations[currentLang].focus}`;
+            }
+            phaseDisplay.textContent = phaseText;
+        }
+        
+        // 알림음 시스템
+        let selectedSound = 'bell'; // 기본값: 클래식 벨
+        
+        // 알림음 재생
+        function playNotification() {
+            if (!soundEnabled) return;
+            
+            switch(selectedSound) {
+                case 'bell':
+                    playBellSound();
+                    break;
+                case 'digital':
+                    playDigitalBeep();
+                    break;
+                case 'chime':
+                    playChimeSound();
+                    break;
+                case 'alarm':
+                    playAlarmSound();
+                    break;
+                case 'gong':
+                    playGongSound();
+                    break;
+                default:
+                    playBellSound();
+            }
+        }
+        
+        // 1. 클래식 벨 (부드럽고 전통적)
+        function playBellSound() {
+            const ctx = new (window.AudioContext || window.webkitAudioContext)();
+            const now = ctx.currentTime;
+            
+            // C5, E5, G5 화음 (밝고 맑은 벨 소리)
+            [523.25, 659.25, 783.99].forEach(freq => {
+                const osc = ctx.createOscillator();
+                const gain = ctx.createGain();
+                
+                osc.connect(gain);
+                gain.connect(ctx.destination);
+                
+                osc.type = 'sine';
+                osc.frequency.value = freq;
+                
+                gain.gain.setValueAtTime(0.15, now);
+                gain.gain.exponentialRampToValueAtTime(0.01, now + 0.8);
+                
+                osc.start(now);
+                osc.stop(now + 0.8);
+            });
+            
+            // 두 번째 타종
+            setTimeout(() => {
+                if (!soundEnabled) return;
+                const ctx2 = new AudioContext();
+                const now2 = ctx2.currentTime;
+                
+                [523.25, 659.25, 783.99].forEach(freq => {
+                    const osc = ctx2.createOscillator();
+                    const gain = ctx2.createGain();
+                    osc.connect(gain);
+                    gain.connect(ctx2.destination);
+                    osc.type = 'sine';
+                    osc.frequency.value = freq;
+                    gain.gain.setValueAtTime(0.12, now2);
+                    gain.gain.exponentialRampToValueAtTime(0.01, now2 + 0.7);
+                    osc.start(now2);
+                    osc.stop(now2 + 0.7);
+                });
+            }, 150);
+        }
+        
+        // 2. 디지털 비프 (명확하고 현대적)
+        function playDigitalBeep() {
+            const ctx = new AudioContext();
+            const now = ctx.currentTime;
+            
+            // 두 번의 짧은 비프
+            [0, 0.15].forEach(delay => {
+                const osc = ctx.createOscillator();
+                const gain = ctx.createGain();
+                
+                osc.connect(gain);
+                gain.connect(ctx.destination);
+                
+                osc.type = 'square';
+                osc.frequency.value = 880; // A5
+                
+                gain.gain.setValueAtTime(0.2, now + delay);
+                gain.gain.exponentialRampToValueAtTime(0.01, now + delay + 0.1);
+                
+                osc.start(now + delay);
+                osc.stop(now + delay + 0.1);
+            });
+        }
+        
+        // 3. 소프트 차임 (부드럽고 우아한)
+        function playChimeSound() {
+            const ctx = new AudioContext();
+            const now = ctx.currentTime;
+            
+            // 상승하는 3음계 (C5 → E5 → G5)
+            const notes = [
+                { freq: 523.25, delay: 0 },
+                { freq: 659.25, delay: 0.1 },
+                { freq: 783.99, delay: 0.2 }
+            ];
+            
+            notes.forEach(note => {
+                const osc = ctx.createOscillator();
+                const gain = ctx.createGain();
+                
+                osc.connect(gain);
+                gain.connect(ctx.destination);
+                
+                osc.type = 'sine';
+                osc.frequency.value = note.freq;
+                
+                gain.gain.setValueAtTime(0.15, now + note.delay);
+                gain.gain.exponentialRampToValueAtTime(0.01, now + note.delay + 0.6);
+                
+                osc.start(now + note.delay);
+                osc.stop(now + note.delay + 0.6);
+            });
+        }
+        
+        // 4. 긴급 알람 (강하고 주의를 끄는)
+        function playAlarmSound() {
+            const ctx = new AudioContext();
+            const now = ctx.currentTime;
+            
+            // 빠른 교차 비프 (경보음 패턴)
+            [0, 0.08, 0.16, 0.24].forEach(delay => {
+                const osc = ctx.createOscillator();
+                const gain = ctx.createGain();
+                
+                osc.connect(gain);
+                gain.connect(ctx.destination);
+                
+                osc.type = 'sawtooth';
+                osc.frequency.value = delay % 0.16 === 0 ? 800 : 600;
+                
+                gain.gain.setValueAtTime(0.25, now + delay);
+                gain.gain.exponentialRampToValueAtTime(0.01, now + delay + 0.08);
+                
+                osc.start(now + delay);
+                osc.stop(now + delay + 0.08);
+            });
+        }
+        
+        // 5. 공/목탁 소리 (명상용, 깊고 울림)
+        function playGongSound() {
+            const ctx = new AudioContext();
+            const now = ctx.currentTime;
+            
+            // 낮은 주파수로 깊은 울림 생성
+            const baseFreq = 130.81; // C3
+            [1, 2, 3, 4].forEach((harmonic, i) => {
+                const osc = ctx.createOscillator();
+                const gain = ctx.createGain();
+                
+                osc.connect(gain);
+                gain.connect(ctx.destination);
+                
+                osc.type = 'sine';
+                osc.frequency.value = baseFreq * harmonic;
+                
+                const volume = 0.2 / harmonic; // 고조파는 작게
+                gain.gain.setValueAtTime(volume, now);
+                gain.gain.exponentialRampToValueAtTime(0.01, now + 2);
+                
+                osc.start(now);
+                osc.stop(now + 2);
+            });
+        }
+        
+        // YouTube 플레이어
+        let savedYouTubeUrl = '';
+        
+        function loadYouTube() {
+            const url = document.getElementById('youtube-url').value.trim();
+            if (!url) {
+                alert(translations[currentLang].enterYouTubeUrl || 'YouTube URL을 입력해주세요.');
+                return;
+            }
+            
+            savedYouTubeUrl = url;
+            const iframe = document.getElementById('youtube-iframe');
+            
+            // 플레이리스트 URL 확인
+            const playlistMatch = url.match(/[?&]list=([^&]+)/);
+            const videoId = extractYouTubeId(url);
+            
+            if (playlistMatch) {
+                // 플레이리스트 모드
+                const listId = playlistMatch[1];
+                iframe.src = `https://www.youtube.com/embed/videoseries?list=${listId}&autoplay=1&mute=1&controls=1&modestbranding=1&rel=0`;
+            } else if (videoId) {
+                // 단일 영상 모드 (반복재생)
+                iframe.src = `https://www.youtube.com/embed/${videoId}?autoplay=1&mute=1&loop=1&playlist=${videoId}&controls=1&modestbranding=1&rel=0`;
+            } else {
+                alert(translations[currentLang].invalidYouTubeUrl || '올바른 YouTube URL을 입력해주세요.');
+                return;
+            }
+            
+            document.getElementById('youtube-player').classList.remove('hidden');
+            saveSettings();
+        }
+        
+        function clearYouTube() {
+            savedYouTubeUrl = '';
+            document.getElementById('youtube-url').value = '';
+            document.getElementById('youtube-iframe').src = '';
+            document.getElementById('youtube-player').classList.add('hidden');
+            saveSettings();
+        }
+        
+        function extractYouTubeId(url) {
+            const regExp = /^.*(youtu.be\/|v\/|u\/\w\/|embed\/|watch\?v=|&v=)([^#&?]*).*/;
+            const match = url.match(regExp);
+            return (match && match[2].length === 11) ? match[2] : null;
+        }
+        
+        // 설정 모달
+        function toggleSettings() {
+            const modal = document.getElementById('settings-modal');
+            modal.classList.toggle('hidden');
+            modal.classList.toggle('flex');
+        }
+        
+        // 도움말 모달
+        function toggleHelp() {
+            const modal = document.getElementById('help-modal');
+            modal.classList.toggle('hidden');
+            modal.classList.toggle('flex');
+        }
+        
+        // 알림음 변경
+        function changeSound(soundType) {
+            selectedSound = soundType;
+            saveSettings();
+        }
+        
+        // 알림음 테스트
+        function testSound(soundType) {
+            const previousSound = soundEnabled;
+            soundEnabled = true; // 테스트 중에는 강제로 켜기
+            
+            switch(soundType) {
+                case 'bell': playBellSound(); break;
+                case 'digital': playDigitalBeep(); break;
+                case 'chime': playChimeSound(); break;
+                case 'alarm': playAlarmSound(); break;
+                case 'gong': playGongSound(); break;
+            }
+            
+            soundEnabled = previousSound; // 원래 설정으로 복구
+        }
+        
+        // 설정 저장
+        function saveSettings() {
+            const settings = {
+                lang: currentLang,
+                theme: currentTheme,
+                soundEnabled: soundEnabled,
+                selectedSound: selectedSound,
+                youtubeUrl: savedYouTubeUrl,
+                customWork: document.getElementById('custom-work').value,
+                customBreak: document.getElementById('custom-break').value,
+                customCycles: document.getElementById('custom-cycles').value,
+                customLongBreak: document.getElementById('custom-long-break').value
+            };
+            
+            localStorage.setItem('focusFlowSettings', JSON.stringify(settings));
+        }
+        
+        // 설정 불러오기
+        function loadSettings() {
+            const saved = localStorage.getItem('focusFlowSettings');
+            if (!saved) return;
+            
+            try {
+                const settings = JSON.parse(saved);
+                
+                if (settings.lang) switchLanguage(settings.lang);
+                if (settings.theme) setTheme(settings.theme);
+                if (settings.soundEnabled !== undefined) soundEnabled = settings.soundEnabled;
+                
+                // 알림음 설정 복원
+                if (settings.selectedSound) {
+                    selectedSound = settings.selectedSound;
+                    const radioBtn = document.querySelector(`input[name="sound"][value="${selectedSound}"]`);
+                    if (radioBtn) radioBtn.checked = true;
+                }
+                
+                // YouTube URL 복원
+                if (settings.youtubeUrl) {
+                    savedYouTubeUrl = settings.youtubeUrl;
+                    document.getElementById('youtube-url').value = settings.youtubeUrl;
+                    
+                    // 플레이리스트 또는 단일 영상 자동 로드
+                    const playlistMatch = settings.youtubeUrl.match(/[?&]list=([^&]+)/);
+                    const videoId = extractYouTubeId(settings.youtubeUrl);
+                    
+                    if (playlistMatch) {
+                        const listId = playlistMatch[1];
+                        const iframe = document.getElementById('youtube-iframe');
+                        iframe.src = `https://www.youtube.com/embed/videoseries?list=${listId}&autoplay=1&mute=1&controls=1&modestbranding=1&rel=0`;
+                        document.getElementById('youtube-player').classList.remove('hidden');
+                    } else if (videoId) {
+                        const iframe = document.getElementById('youtube-iframe');
+                        iframe.src = `https://www.youtube.com/embed/${videoId}?autoplay=1&mute=1&loop=1&playlist=${videoId}&controls=1&modestbranding=1&rel=0`;
+                        document.getElementById('youtube-player').classList.remove('hidden');
+                    }
+                }
+                
+                if (settings.customWork) 
+                    document.getElementById('custom-work').value = settings.customWork;
+                if (settings.customBreak) 
+                    document.getElementById('custom-break').value = settings.customBreak;
+                if (settings.customCycles) 
+                    document.getElementById('custom-cycles').value = settings.customCycles;
+                if (settings.customLongBreak) 
+                    document.getElementById('custom-long-break').value = settings.customLongBreak;
+            } catch (e) {
+                console.error('설정 불러오기 실패:', e);
+            }
+        }
+        
+        // 설정 내보내기
+        function exportSettings() {
+            saveSettings();
+            const settings = localStorage.getItem('focusFlowSettings');
+            const code = btoa(settings);
+            prompt('설정 코드 (복사하세요):', code);
+        }
+        
+        // 설정 가져오기
+        function importSettings() {
+            const code = document.getElementById('import-code').value.trim();
+            if (!code) {
+                alert('코드를 입력해주세요.');
+                return;
+            }
+            
+            try {
+                const settings = atob(code);
+                localStorage.setItem('focusFlowSettings', settings);
+                location.reload();
+            } catch (e) {
+                alert('잘못된 코드입니다.');
+            }
+        }
+        
+        // 페이지 로드 시 초기화
+        window.addEventListener('DOMContentLoaded', () => {
+            init();
+        });
+        
+        // 스페이스바로 타이머 토글
+        document.addEventListener('keydown', (e) => {
+            if (e.code === 'Space' && e.target.tagName !== 'INPUT') {
+                e.preventDefault();
+                toggleTimer();
+            }
+        });
+    </script>
+</body>
+</html>
