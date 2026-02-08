@@ -551,7 +551,7 @@
                         
                         <button onclick="clearYouTube()" 
                                 class="w-full mt-2 px-4 py-2 bg-red-500/20 hover:bg-red-500/30 rounded-lg transition text-sm">
-                            음악 제거
+                            <span data-i18n="clearMusic">음악 제거</span>
                         </button>
                     </div>
                 </div>
@@ -567,61 +567,61 @@
             <div class="space-y-4">
                 <!-- 알림음 설정 -->
                 <div class="pb-4 border-b border-white/10">
-                    <h3 class="font-semibold mb-3">알림음</h3>
+                    <h3 class="font-semibold mb-3" data-i18n="notificationSound">알림음</h3>
                     
                     <div class="space-y-2">
                         <label class="flex items-center justify-between p-3 bg-white/5 hover:bg-white/10 rounded-lg cursor-pointer transition">
                             <div class="flex items-center">
                                 <input type="radio" name="sound" value="bell" checked onchange="changeSound('bell')" class="mr-3">
-                                <span>클래식 벨</span>
+                                <span data-i18n="classicBell">클래식 벨</span>
                             </div>
                             <button onclick="event.stopPropagation(); testSound('bell')" 
                                     class="px-3 py-1 bg-deep-focus-accent hover:opacity-80 rounded text-xs">
-                                테스트
+                                <span data-i18n="test">테스트</span>
                             </button>
                         </label>
                         
                         <label class="flex items-center justify-between p-3 bg-white/5 hover:bg-white/10 rounded-lg cursor-pointer transition">
                             <div class="flex items-center">
                                 <input type="radio" name="sound" value="digital" onchange="changeSound('digital')" class="mr-3">
-                                <span>디지털 비프</span>
+                                <span data-i18n="digitalBeep">디지털 비프</span>
                             </div>
                             <button onclick="event.stopPropagation(); testSound('digital')" 
                                     class="px-3 py-1 bg-deep-focus-accent hover:opacity-80 rounded text-xs">
-                                테스트
+                                <span data-i18n="test">테스트</span>
                             </button>
                         </label>
                         
                         <label class="flex items-center justify-between p-3 bg-white/5 hover:bg-white/10 rounded-lg cursor-pointer transition">
                             <div class="flex items-center">
                                 <input type="radio" name="sound" value="chime" onchange="changeSound('chime')" class="mr-3">
-                                <span>소프트 차임</span>
+                                <span data-i18n="softChime">소프트 차임</span>
                             </div>
                             <button onclick="event.stopPropagation(); testSound('chime')" 
                                     class="px-3 py-1 bg-deep-focus-accent hover:opacity-80 rounded text-xs">
-                                테스트
+                                <span data-i18n="test">테스트</span>
                             </button>
                         </label>
                         
                         <label class="flex items-center justify-between p-3 bg-white/5 hover:bg-white/10 rounded-lg cursor-pointer transition">
                             <div class="flex items-center">
                                 <input type="radio" name="sound" value="alarm" onchange="changeSound('alarm')" class="mr-3">
-                                <span>긴급 알람</span>
+                                <span data-i18n="urgentAlarm">긴급 알람</span>
                             </div>
                             <button onclick="event.stopPropagation(); testSound('alarm')" 
                                     class="px-3 py-1 bg-deep-focus-accent hover:opacity-80 rounded text-xs">
-                                테스트
+                                <span data-i18n="test">테스트</span>
                             </button>
                         </label>
                         
                         <label class="flex items-center justify-between p-3 bg-white/5 hover:bg-white/10 rounded-lg cursor-pointer transition">
                             <div class="flex items-center">
                                 <input type="radio" name="sound" value="gong" onchange="changeSound('gong')" class="mr-3">
-                                <span>명상 공</span>
+                                <span data-i18n="meditationGong">명상 공</span>
                             </div>
                             <button onclick="event.stopPropagation(); testSound('gong')" 
                                     class="px-3 py-1 bg-deep-focus-accent hover:opacity-80 rounded text-xs">
-                                테스트
+                                <span data-i18n="test">테스트</span>
                             </button>
                         </label>
                     </div>
@@ -633,7 +633,7 @@
                             class="w-full px-4 py-2 bg-white/10 hover:bg-white/20 rounded-lg transition mb-2">
                         <span data-i18n="export">코드 생성</span>
                     </button>
-                    <input type="text" id="import-code" placeholder="코드 입력..."
+                    <input type="text" id="import-code" data-i18n-placeholder="importCodePlaceholder" placeholder="코드 입력..."
                            class="w-full px-4 py-2 bg-white/10 rounded-lg border border-white/20 mb-2">
                     <button onclick="importSettings()" 
                             class="w-full px-4 py-2 bg-white/10 hover:bg-white/20 rounded-lg transition">
@@ -798,7 +798,31 @@
                 tip2: '• 배경음악은 사이드바 하단에서 YouTube URL을 입력하세요',
                 tip3: '• 알림음은 설정에서 5가지 중 선택할 수 있습니다',
                 tip4: '• Custom 탭에서 원하는 시간을 자유롭게 설정하세요',
-                close: '닫기'
+                close: '닫기',
+                // 설정 모달
+                notificationSound: '알림음',
+                classicBell: '클래식 벨',
+                digitalBeep: '디지털 비프',
+                softChime: '소프트 차임',
+                urgentAlarm: '긴급 알람',
+                meditationGong: '명상 공',
+                test: '테스트',
+                exportSettings: '설정 내보내기',
+                export: '코드 생성',
+                import: '불러오기',
+                importCodePlaceholder: '코드 입력...',
+                // 모드 설명
+                descPomoEasy: '15분 집중, 5분 휴식을 4회 반복 후 20분 긴 휴식',
+                descPomoNormal: '25분 집중, 5분 휴식을 4회 반복 후 15분 긴 휴식',
+                descPomoFocus: '50분 집중, 10분 휴식을 3회 반복 후 30분 긴 휴식',
+                descHiitBeginner: '30초 운동, 30초 휴식 반복 (초보자용 저강도)',
+                descHiitIntermediate: '40초 운동, 20초 휴식 반복 (중급자용 중강도)',
+                descHiitAdvanced: '45초 운동, 15초 휴식 반복 (상급자용 고강도)',
+                descTabata: '20초 전력 운동, 10초 휴식 반복 (초고강도 인터벌)',
+                descMeditationShort: '5분 동안 호흡에 집중하며 마음을 정리하세요',
+                descMeditationBreathing: '4-7-8 호흡: 4초 들숨 → 7초 멈춤 → 8초 날숨 반복',
+                descMeditationMedium: '15분 동안 깊은 명상으로 마음을 정화하세요',
+                descMeditationLong: '30분 동안 완전한 명상 상태로 진입하세요'
             },
             en: {
                 appName: 'My Pomodoro Timer',
@@ -882,7 +906,28 @@
                 tip2: '• Add background music by entering YouTube URL at bottom of sidebar',
                 tip3: '• Choose from 5 notification sounds in settings',
                 tip4: '• Set custom times in the Custom tab',
-                close: 'Close'
+                close: 'Close',
+                // 설정 모달
+                notificationSound: 'Notification Sound',
+                classicBell: 'Classic Bell',
+                digitalBeep: 'Digital Beep',
+                softChime: 'Soft Chime',
+                urgentAlarm: 'Urgent Alarm',
+                meditationGong: 'Meditation Gong',
+                test: 'Test',
+                importCodePlaceholder: 'Enter code...',
+                // 모드 설명
+                descPomoEasy: '15min focus, 5min break × 4, then 20min long break',
+                descPomoNormal: '25min focus, 5min break × 4, then 15min long break',
+                descPomoFocus: '50min focus, 10min break × 3, then 30min long break',
+                descHiitBeginner: '30s work, 30s rest (Beginner low-intensity)',
+                descHiitIntermediate: '40s work, 20s rest (Intermediate medium-intensity)',
+                descHiitAdvanced: '45s work, 15s rest (Advanced high-intensity)',
+                descTabata: '20s sprint, 10s rest (Ultra high-intensity interval)',
+                descMeditationShort: 'Focus on breathing for 5 minutes to clear your mind',
+                descMeditationBreathing: '4-7-8 breathing: 4s inhale → 7s hold → 8s exhale',
+                descMeditationMedium: 'Cleanse your mind with 15 minutes of deep meditation',
+                descMeditationLong: 'Enter a complete meditative state for 30 minutes'
             }
         };
         
@@ -890,6 +935,7 @@
         let currentLang = 'ko';
         let currentTheme = 'deep-focus';
         let soundEnabled = true;
+        let currentPresetName = 'pomo-normal'; // 현재 선택된 프리셋 추적
         let timerState = {
             isRunning: false,
             currentTime: 25 * 60, // 초 단위
@@ -919,26 +965,16 @@
             'meditation-long': { work: 30, break: 0, longBreak: 0, cycles: 1 }
         };
         
-        // 프리셋 설명
-        const presetDescriptions = {
-            'pomo-easy': '15분 집중, 5분 휴식을 4회 반복 후 20분 긴 휴식',
-            'pomo-normal': '25분 집중, 5분 휴식을 4회 반복 후 15분 긴 휴식',
-            'pomo-focus': '50분 집중, 10분 휴식을 3회 반복 후 30분 긴 휴식',
-            'hiit-beginner': '30초 운동, 30초 휴식 반복 (초보자용 저강도)',
-            'hiit-intermediate': '40초 운동, 20초 휴식 반복 (중급자용 중강도)',
-            'hiit-advanced': '45초 운동, 15초 휴식 반복 (상급자용 고강도)',
-            'tabata': '20초 전력 운동, 10초 휴식 반복 (초고강도 인터벌)',
-            'meditation-short': '5분 동안 호흡에 집중하며 마음을 정리하세요',
-            'meditation-breathing': '4-7-8 호흡: 4초 들숨 → 7초 멈춤 → 8초 날숨 반복',
-            'meditation-medium': '15분 동안 깊은 명상으로 마음을 정화하세요',
-            'meditation-long': '30분 동안 완전한 명상 상태로 진입하세요'
-        };
-        
         // 모드 설명 업데이트
         function updateModeDescription(presetKey) {
             const descElement = document.getElementById('mode-description');
-            if (presetDescriptions[presetKey]) {
-                descElement.textContent = presetDescriptions[presetKey];
+            const descKey = 'desc' + presetKey.split('-').map(word => 
+                word.charAt(0).toUpperCase() + word.slice(1)
+            ).join('');
+            
+            const text = translations[currentLang][descKey];
+            if (text) {
+                descElement.textContent = text;
             } else {
                 descElement.textContent = '';
             }
@@ -986,9 +1022,20 @@
                 }
             });
             
+            // placeholder 업데이트
+            document.querySelectorAll('[data-i18n-placeholder]').forEach(el => {
+                const key = el.getAttribute('data-i18n-placeholder');
+                if (translations[lang][key]) {
+                    el.placeholder = translations[lang][key];
+                }
+            });
+            
             // 언어 버튼 활성화 표시
             document.getElementById('lang-ko').classList.toggle('bg-white/20', lang === 'ko');
             document.getElementById('lang-en').classList.toggle('bg-white/20', lang === 'en');
+            
+            // 현재 프리셋 설명 업데이트
+            updateModeDescription(currentPresetName);
             
             saveSettings();
         }
@@ -1025,6 +1072,7 @@
         
         // 프리셋 설정
         function setPreset(presetName) {
+            currentPresetName = presetName; // 현재 프리셋 저장
             const preset = presets[presetName];
             timerState.workTime = preset.work;
             timerState.breakTime = preset.break;
@@ -1044,6 +1092,7 @@
         
         // Custom 설정 적용
         function applyCustomSettings() {
+            currentPresetName = 'custom'; // Custom 모드로 설정
             const work = parseInt(document.getElementById('custom-work').value);
             const breakTime = parseInt(document.getElementById('custom-break').value);
             const cycles = parseInt(document.getElementById('custom-cycles').value);
