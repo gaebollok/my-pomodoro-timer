@@ -1780,7 +1780,14 @@
         // 설정 불러오기
         function loadSettings() {
             const saved = localStorage.getItem('focusFlowSettings');
-            if (!saved) return;
+            
+            // 저장된 설정이 없으면 브라우저 언어 자동 감지
+            if (!saved) {
+                const browserLang = navigator.language || navigator.languages[0] || 'en';
+                const isKorean = browserLang.toLowerCase().startsWith('ko');
+                switchLanguage(isKorean ? 'ko' : 'en');
+                return;
+            }
             
             try {
                 const settings = JSON.parse(saved);
