@@ -383,19 +383,19 @@
             <div class="p-6">
                 <!-- 탭 메뉴 -->
                 <div class="flex gap-2 mb-6 border-b border-white/10">
-                    <button class="tab-btn px-4 py-2 active border-b-2 border-deep-focus-accent" 
+                    <button class="tab-btn flex-1 px-2 py-2 text-sm active border-b-2 border-deep-focus-accent whitespace-nowrap overflow-hidden text-ellipsis" 
                             data-tab="pomodoro" onclick="switchTab('pomodoro')">
                         <span data-i18n="pomodoro">포모도로</span>
                     </button>
-                    <button class="tab-btn px-4 py-2 border-b-2 border-transparent" 
+                    <button class="tab-btn flex-1 px-2 py-2 text-sm border-b-2 border-transparent whitespace-nowrap overflow-hidden text-ellipsis" 
                             data-tab="exercise" onclick="switchTab('exercise')">
                         <span data-i18n="exercise">운동</span>
                     </button>
-                    <button class="tab-btn px-4 py-2 border-b-2 border-transparent" 
+                    <button class="tab-btn flex-1 px-2 py-2 text-sm border-b-2 border-transparent whitespace-nowrap overflow-hidden text-ellipsis" 
                             data-tab="meditation" onclick="switchTab('meditation')">
                         <span data-i18n="meditation">명상</span>
                     </button>
-                    <button class="tab-btn px-4 py-2 border-b-2 border-transparent" 
+                    <button class="tab-btn flex-1 px-2 py-2 text-sm border-b-2 border-transparent whitespace-nowrap overflow-hidden text-ellipsis" 
                             data-tab="custom" onclick="switchTab('custom')">
                         <span data-i18n="custom">Custom</span>
                     </button>
@@ -408,19 +408,19 @@
                         <button onclick="setPreset('pomo-easy')" 
                                 class="preset-btn w-full text-left p-4 bg-white/5 hover:bg-white/10 rounded-lg transition">
                             <div class="font-medium" data-i18n="easy">여유 모드</div>
-                            <div class="text-sm opacity-60">15분 집중 / 5분 휴식</div>
+                            <div class="text-sm opacity-60" data-i18n="easyDesc">15분 집중 / 5분 휴식</div>
                         </button>
                         
                         <button onclick="setPreset('pomo-normal')" 
                                 class="preset-btn w-full text-left p-4 bg-white/5 hover:bg-white/10 rounded-lg transition">
                             <div class="font-medium" data-i18n="normal">일반 모드</div>
-                            <div class="text-sm opacity-60">25분 집중 / 5분 휴식</div>
+                            <div class="text-sm opacity-60" data-i18n="normalDesc">25분 집중 / 5분 휴식</div>
                         </button>
                         
                         <button onclick="setPreset('pomo-focus')" 
                                 class="preset-btn w-full text-left p-4 bg-white/5 hover:bg-white/10 rounded-lg transition">
                             <div class="font-medium" data-i18n="focus">집중 모드</div>
-                            <div class="text-sm opacity-60">50분 집중 / 10분 휴식</div>
+                            <div class="text-sm opacity-60" data-i18n="focusDesc">50분 집중 / 10분 휴식</div>
                         </button>
                     </div>
                 </div>
@@ -431,26 +431,26 @@
                     <div class="space-y-3">
                         <button onclick="setPreset('hiit-beginner')" 
                                 class="preset-btn w-full text-left p-4 bg-white/5 hover:bg-white/10 rounded-lg transition">
-                            <div class="font-medium">HIIT 초급</div>
-                            <div class="text-sm opacity-60">30초 운동 / 30초 휴식 × 10</div>
+                            <div class="font-medium" data-i18n="hiitBeginner">HIIT 초급</div>
+                            <div class="text-sm opacity-60" data-i18n="hiitBeginnerDesc">30초 운동 / 30초 휴식 × 10</div>
                         </button>
                         
                         <button onclick="setPreset('hiit-intermediate')" 
                                 class="preset-btn w-full text-left p-4 bg-white/5 hover:bg-white/10 rounded-lg transition">
-                            <div class="font-medium">HIIT 중급</div>
-                            <div class="text-sm opacity-60">40초 운동 / 20초 휴식 × 15</div>
+                            <div class="font-medium" data-i18n="hiitIntermediate">HIIT 중급</div>
+                            <div class="text-sm opacity-60" data-i18n="hiitIntermediateDesc">40초 운동 / 20초 휴식 × 15</div>
                         </button>
                         
                         <button onclick="setPreset('hiit-advanced')" 
                                 class="preset-btn w-full text-left p-4 bg-white/5 hover:bg-white/10 rounded-lg transition">
-                            <div class="font-medium">HIIT 고급</div>
-                            <div class="text-sm opacity-60">45초 운동 / 15초 휴식 × 20</div>
+                            <div class="font-medium" data-i18n="hiitAdvanced">HIIT 고급</div>
+                            <div class="text-sm opacity-60" data-i18n="hiitAdvancedDesc">45초 운동 / 15초 휴식 × 20</div>
                         </button>
                         
                         <button onclick="setPreset('tabata')" 
                                 class="preset-btn w-full text-left p-4 bg-white/5 hover:bg-white/10 rounded-lg transition">
-                            <div class="font-medium">Tabata</div>
-                            <div class="text-sm opacity-60">20초 운동 / 10초 휴식 × 8</div>
+                            <div class="font-medium" data-i18n="tabata">Tabata</div>
+                            <div class="text-sm opacity-60" data-i18n="tabataDesc">20초 운동 / 10초 휴식 × 8</div>
                         </button>
                     </div>
                 </div>
@@ -461,26 +461,26 @@
                     <div class="space-y-3">
                         <button onclick="setPreset('meditation-short')" 
                                 class="preset-btn w-full text-left p-4 bg-white/5 hover:bg-white/10 rounded-lg transition">
-                            <div class="font-medium">잡생각 정리</div>
-                            <div class="text-sm opacity-60">5분</div>
+                            <div class="font-medium" data-i18n="meditationShort">잡생각 정리</div>
+                            <div class="text-sm opacity-60" data-i18n="meditationShortDesc">5분</div>
                         </button>
                         
                         <button onclick="setPreset('meditation-breathing')" 
                                 class="preset-btn w-full text-left p-4 bg-white/5 hover:bg-white/10 rounded-lg transition">
-                            <div class="font-medium">심호흡 (4-7-8)</div>
-                            <div class="text-sm opacity-60">10분</div>
+                            <div class="font-medium" data-i18n="meditationBreathing">심호흡 (4-7-8)</div>
+                            <div class="text-sm opacity-60" data-i18n="meditationBreathingDesc">10분</div>
                         </button>
                         
                         <button onclick="setPreset('meditation-medium')" 
                                 class="preset-btn w-full text-left p-4 bg-white/5 hover:bg-white/10 rounded-lg transition">
-                            <div class="font-medium">짧은 명상</div>
-                            <div class="text-sm opacity-60">15분</div>
+                            <div class="font-medium" data-i18n="meditationMedium">짧은 명상</div>
+                            <div class="text-sm opacity-60" data-i18n="meditationMediumDesc">15분</div>
                         </button>
                         
                         <button onclick="setPreset('meditation-long')" 
                                 class="preset-btn w-full text-left p-4 bg-white/5 hover:bg-white/10 rounded-lg transition">
-                            <div class="font-medium">긴 명상</div>
-                            <div class="text-sm opacity-60">30분</div>
+                            <div class="font-medium" data-i18n="meditationLong">긴 명상</div>
+                            <div class="text-sm opacity-60" data-i18n="meditationLongDesc">30분</div>
                         </button>
                     </div>
                 </div>
@@ -522,17 +522,18 @@
                 
                 <!-- YouTube 배경음 (모든 탭 공통) -->
                 <div class="pt-6 mt-6 border-t border-white/10">
-                    <h4 class="font-semibold mb-3">배경음</h4>
+                    <h4 class="font-semibold mb-3" data-i18n="backgroundMusic">배경음</h4>
                     
                     <div>
-                        <label class="block text-sm mb-2 opacity-80">YouTube URL</label>
+                        <label class="block text-sm mb-2 opacity-80" data-i18n="youtubeUrl">YouTube URL</label>
                         <input type="text" id="youtube-url" placeholder="https://youtube.com/watch?v=..."
                                class="w-full px-4 py-2 bg-white/10 rounded-lg border border-white/20 focus:border-deep-focus-accent outline-none text-sm">
                     </div>
                     
                     <button onclick="loadYouTube()" 
                             class="w-full mt-3 px-4 py-2 bg-deep-focus-accent hover:opacity-80 rounded-lg transition text-sm font-medium">
-                        음악 불러오기
+                        <span data-i18n="loadMusic">음악 불러오기</span>
+                    </button>
                     </button>
                     
                     <!-- YouTube 플레이어 -->
@@ -651,63 +652,64 @@
     <!-- 도움말 모달 -->
     <div id="help-modal" class="fixed inset-0 bg-black/50 hidden items-center justify-center z-50">
         <div class="bg-deep-focus-main p-8 rounded-lg max-w-2xl w-full mx-4 max-h-[90vh] overflow-y-auto">
-            <h2 class="text-2xl font-bold mb-6">나만의 포모도로 타이머 사용 방법</h2>
+            <h2 class="text-2xl font-bold mb-6" data-i18n="helpTitle">나만의 포모도로 타이머 사용 방법</h2>
             
             <div class="space-y-6">
                 <!-- 포모도로 -->
                 <div class="border-b border-white/10 pb-4">
-                    <h3 class="text-lg font-semibold mb-2">🍅 포모도로 타이머</h3>
-                    <p class="text-sm opacity-80 leading-relaxed">
+                    <h3 class="text-lg font-semibold mb-2" data-i18n="pomoHelpTitle">🍅 포모도로 타이머</h3>
+                    <p class="text-sm opacity-80 leading-relaxed" data-i18n="pomoHelpDesc">
                         장시간 PC 작업 시 효율적인 집중과 휴식을 도와주는 과학적 시간 관리 기법입니다. 
                         적절한 휴식으로 뇌 피로를 줄이고 생산성을 극대화하세요!
-                        <br><br>
-                        <strong>🎯 일반 모드:</strong> 25분 집중 + 5분 휴식 (표준 포모도로)<br>
-                        <strong>⚡ 여유 모드:</strong> 50분 집중 + 10분 휴식 (장시간 몰입 작업)
                     </p>
+                    <div class="mt-2">
+                        <p class="text-sm opacity-80" data-i18n="pomoHelpNormal">🎯 일반 모드: 25분 집중 + 5분 휴식 (표준 포모도로)</p>
+                        <p class="text-sm opacity-80" data-i18n="pomoHelpEasy">⚡ 여유 모드: 50분 집중 + 10분 휴식 (장시간 몰입 작업)</p>
+                    </div>
                 </div>
                 
                 <!-- 운동 -->
                 <div class="border-b border-white/10 pb-4">
-                    <h3 class="text-lg font-semibold mb-2">💪 운동 타이머</h3>
-                    <p class="text-sm opacity-80 leading-relaxed mb-3">
+                    <h3 class="text-lg font-semibold mb-2" data-i18n="exerciseHelpTitle">💪 운동 타이머</h3>
+                    <p class="text-sm opacity-80 leading-relaxed mb-3" data-i18n="exerciseHelpDesc">
                         집에서도 효과적인 고강도 인터벌 트레이닝(HIIT)! 짧은 시간 최대 칼로리 소모로 체력 향상과 다이어트를 동시에!
                     </p>
                     <div class="bg-white/5 p-3 rounded text-sm space-y-2">
-                        <div><strong>💨 HIIT 기본:</strong> 40초 운동 + 20초 휴식 (입문자 추천)</div>
-                        <div><strong>🔥 타바타:</strong> 20초 전력질주 + 10초 휴식 (최고강도)</div>
-                        <div><strong>⚡ 서킷:</strong> 60초 운동 + 30초 휴식 (근력 강화)</div>
+                        <div data-i18n="exerciseHelpHiit">💨 HIIT 기본: 40초 운동 + 20초 휴식 (입문자 추천)</div>
+                        <div data-i18n="exerciseHelpTabata">🔥 타바타: 20초 전력질주 + 10초 휴식 (최고강도)</div>
+                        <div data-i18n="exerciseHelpCircuit">⚡ 서킷: 60초 운동 + 30초 휴식 (근력 강화)</div>
                     </div>
                 </div>
                 
                 <!-- 명상 -->
                 <div class="border-b border-white/10 pb-4">
-                    <h3 class="text-lg font-semibold mb-2">🧘 명상 타이머</h3>
-                    <p class="text-sm opacity-80 leading-relaxed mb-3">
+                    <h3 class="text-lg font-semibold mb-2" data-i18n="meditationHelpTitle">🧘 명상 타이머</h3>
+                    <p class="text-sm opacity-80 leading-relaxed mb-3" data-i18n="meditationHelpDesc">
                         스트레스 해소와 정신 건강을 위한 과학적 호흡법! 불안감 감소, 숙면, 집중력 향상에 효과적입니다.
                     </p>
                     <div class="bg-white/5 p-3 rounded text-sm space-y-2">
-                        <div><strong>😴 4-7-8 호흡:</strong> 4초 들숨 → 7초 멈춤 → 8초 날숨 (불면증 완화)</div>
-                        <div><strong>🎯 박스 호흡:</strong> 4초씩 4단계 반복 (스트레스 해소)</div>
-                        <div><strong>⏱️ 짧은 명상:</strong> 5분 집중 호흡 (틈새 휴식)</div>
-                        <div><strong>🕉️ 긴 명상:</strong> 15분 깊은 명상 (마음 정화)</div>
+                        <div data-i18n="meditationHelp478">😴 4-7-8 호흡: 4초 들숨 → 7초 멈춤 → 8초 날숨 (불면증 완화)</div>
+                        <div data-i18n="meditationHelpBox">🎯 박스 호흡: 4초씩 4단계 반복 (스트레스 해소)</div>
+                        <div data-i18n="meditationHelpShort">⏱️ 짧은 명상: 5분 집중 호흡 (틈새 휴식)</div>
+                        <div data-i18n="meditationHelpLong">🕉️ 긴 명상: 15분 깊은 명상 (마음 정화)</div>
                     </div>
                 </div>
                 
                 <!-- 사용 팁 -->
                 <div>
-                    <h3 class="text-lg font-semibold mb-2">💡 사용 팁</h3>
+                    <h3 class="text-lg font-semibold mb-2" data-i18n="usageTips">💡 사용 팁</h3>
                     <ul class="text-sm opacity-80 leading-relaxed space-y-2">
-                        <li>• 화면을 클릭하면 타이머가 시작/일시정지됩니다</li>
-                        <li>• 배경음악은 사이드바 하단에서 YouTube URL을 입력하세요</li>
-                        <li>• 알림음은 설정에서 5가지 중 선택할 수 있습니다</li>
-                        <li>• Custom 탭에서 원하는 시간을 자유롭게 설정하세요</li>
+                        <li data-i18n="tip1">• 화면을 클릭하면 타이머가 시작/일시정지됩니다</li>
+                        <li data-i18n="tip2">• 배경음악은 사이드바 하단에서 YouTube URL을 입력하세요</li>
+                        <li data-i18n="tip3">• 알림음은 설정에서 5가지 중 선택할 수 있습니다</li>
+                        <li data-i18n="tip4">• Custom 탭에서 원하는 시간을 자유롭게 설정하세요</li>
                     </ul>
                 </div>
             </div>
             
             <button onclick="toggleHelp()" 
                     class="mt-6 w-full px-4 py-2 bg-deep-focus-accent hover:opacity-80 rounded-lg transition">
-                닫기
+                <span data-i18n="close">닫기</span>
             </button>
         </div>
     </div>
@@ -727,7 +729,7 @@
                 pomodoro: '포모도로',
                 exercise: '운동',
                 meditation: '명상',
-                custom: 'Custom',
+                custom: '커스텀',
                 pomodoroPresets: '포모도로 프리셋',
                 easy: '여유 모드',
                 normal: '일반 모드',
@@ -751,7 +753,52 @@
                 clickToStart: '클릭하여 시작',
                 confirmJump: '타이머를 중지하고 이동하시겠습니까?',
                 enterYouTubeUrl: 'YouTube URL을 입력해주세요.',
-                invalidYouTubeUrl: '올바른 YouTube URL을 입력해주세요.'
+                invalidYouTubeUrl: '올바른 YouTube URL을 입력해주세요.',
+                // 프리셋 설명
+                easyDesc: '15분 집중 / 5분 휴식',
+                normalDesc: '25분 집중 / 5분 휴식',
+                focusDesc: '50분 집중 / 10분 휴식',
+                // 운동 프리셋
+                hiitBeginner: 'HIIT 초급',
+                hiitBeginnerDesc: '30초 운동 / 30초 휴식 × 10',
+                hiitIntermediate: 'HIIT 중급',
+                hiitIntermediateDesc: '40초 운동 / 20초 휴식 × 15',
+                hiitAdvanced: 'HIIT 고급',
+                hiitAdvancedDesc: '45초 운동 / 15초 휴식 × 20',
+                tabata: 'Tabata',
+                tabataDesc: '20초 운동 / 10초 휴식 × 8',
+                // 명상 프리셋
+                meditationShort: '잡생각 정리',
+                meditationShortDesc: '5분',
+                meditationBreathing: '심호흡 (4-7-8)',
+                meditationBreathingDesc: '10분',
+                meditationMedium: '짧은 명상',
+                meditationMediumDesc: '15분',
+                meditationLong: '긴 명상',
+                meditationLongDesc: '30분',
+                // 도움말 모달
+                helpTitle: '나만의 포모도로 타이머 사용 방법',
+                pomoHelpTitle: '🍅 포모도로 타이머',
+                pomoHelpDesc: '장시간 PC 작업 시 효율적인 집중과 휴식을 도와주는 과학적 시간 관리 기법입니다. 적절한 휴식으로 뇌 피로를 줄이고 생산성을 극대화하세요!',
+                pomoHelpNormal: '🎯 일반 모드: 25분 집중 + 5분 휴식 (표준 포모도로)',
+                pomoHelpEasy: '⚡ 여유 모드: 50분 집중 + 10분 휴식 (장시간 몰입 작업)',
+                exerciseHelpTitle: '💪 운동 타이머',
+                exerciseHelpDesc: '집에서도 효과적인 고강도 인터벌 트레이닝(HIIT)! 짧은 시간 최대 칼로리 소모로 체력 향상과 다이어트를 동시에!',
+                exerciseHelpHiit: '💨 HIIT 기본: 40초 운동 + 20초 휴식 (입문자 추천)',
+                exerciseHelpTabata: '🔥 타바타: 20초 전력질주 + 10초 휴식 (최고강도)',
+                exerciseHelpCircuit: '⚡ 서킷: 60초 운동 + 30초 휴식 (근력 강화)',
+                meditationHelpTitle: '🧘 명상 타이머',
+                meditationHelpDesc: '스트레스 해소와 정신 건강을 위한 과학적 호흡법! 불안감 감소, 숙면, 집중력 향상에 효과적입니다.',
+                meditationHelp478: '😴 4-7-8 호흡: 4초 들숨 → 7초 멈춤 → 8초 날숨 (불면증 완화)',
+                meditationHelpBox: '🎯 박스 호흡: 4초씩 4단계 반복 (스트레스 해소)',
+                meditationHelpShort: '⏱️ 짧은 명상: 5분 집중 호흡 (틈새 휴식)',
+                meditationHelpLong: '🕉️ 긴 명상: 15분 깊은 명상 (마음 정화)',
+                usageTips: '💡 사용 팁',
+                tip1: '• 화면을 클릭하면 타이머가 시작/일시정지됩니다',
+                tip2: '• 배경음악은 사이드바 하단에서 YouTube URL을 입력하세요',
+                tip3: '• 알림음은 설정에서 5가지 중 선택할 수 있습니다',
+                tip4: '• Custom 탭에서 원하는 시간을 자유롭게 설정하세요',
+                close: '닫기'
             },
             en: {
                 appName: 'My Pomodoro Timer',
@@ -762,9 +809,9 @@
                 reset: 'Reset',
                 progress: 'Progress',
                 cycle: 'Cycle',
-                pomodoro: 'Pomodoro',
+                pomodoro: 'Work',
                 exercise: 'Exercise',
-                meditation: 'Meditation',
+                meditation: 'Meditate',
                 custom: 'Custom',
                 pomodoroPresets: 'Pomodoro Presets',
                 easy: 'Easy Mode',
@@ -790,7 +837,52 @@
                 clickToStart: 'Click to start',
                 confirmJump: 'Stop timer and jump to this phase?',
                 enterYouTubeUrl: 'Please enter YouTube URL.',
-                invalidYouTubeUrl: 'Please enter a valid YouTube URL.'
+                invalidYouTubeUrl: 'Please enter a valid YouTube URL.',
+                // 프리셋 설명
+                easyDesc: '15min focus / 5min break',
+                normalDesc: '25min focus / 5min break',
+                focusDesc: '50min focus / 10min break',
+                // 운동 프리셋
+                hiitBeginner: 'HIIT Beginner',
+                hiitBeginnerDesc: '30s work / 30s rest × 10',
+                hiitIntermediate: 'HIIT Intermediate',
+                hiitIntermediateDesc: '40s work / 20s rest × 15',
+                hiitAdvanced: 'HIIT Advanced',
+                hiitAdvancedDesc: '45s work / 15s rest × 20',
+                tabata: 'Tabata',
+                tabataDesc: '20s work / 10s rest × 8',
+                // 명상 프리셋
+                meditationShort: 'Quick Clarity',
+                meditationShortDesc: '5 minutes',
+                meditationBreathing: 'Deep Breathing (4-7-8)',
+                meditationBreathingDesc: '10 minutes',
+                meditationMedium: 'Short Meditation',
+                meditationMediumDesc: '15 minutes',
+                meditationLong: 'Long Meditation',
+                meditationLongDesc: '30 minutes',
+                // 도움말 모달
+                helpTitle: 'How to Use My Pomodoro Timer',
+                pomoHelpTitle: '🍅 Pomodoro Timer',
+                pomoHelpDesc: 'A scientific time management technique that helps you focus efficiently and rest during long PC work sessions. Maximize productivity by reducing brain fatigue with proper breaks!',
+                pomoHelpNormal: '🎯 Normal Mode: 25min focus + 5min break (Standard Pomodoro)',
+                pomoHelpEasy: '⚡ Easy Mode: 50min focus + 10min break (Deep work sessions)',
+                exerciseHelpTitle: '💪 Exercise Timer',
+                exerciseHelpDesc: 'Effective High-Intensity Interval Training (HIIT) at home! Burn maximum calories in short time for fitness improvement and weight loss!',
+                exerciseHelpHiit: '💨 HIIT Basic: 40s work + 20s rest (Beginner friendly)',
+                exerciseHelpTabata: '🔥 Tabata: 20s sprint + 10s rest (Maximum intensity)',
+                exerciseHelpCircuit: '⚡ Circuit: 60s work + 30s rest (Strength building)',
+                meditationHelpTitle: '🧘 Meditation Timer',
+                meditationHelpDesc: 'Scientific breathing techniques for stress relief and mental health! Effective for reducing anxiety, better sleep, and improved focus.',
+                meditationHelp478: '😴 4-7-8 Breathing: 4s inhale → 7s hold → 8s exhale (Insomnia relief)',
+                meditationHelpBox: '🎯 Box Breathing: 4s each for 4 steps (Stress relief)',
+                meditationHelpShort: '⏱️ Short Meditation: 5min focused breathing (Quick rest)',
+                meditationHelpLong: '🕉️ Long Meditation: 15min deep meditation (Mind cleansing)',
+                usageTips: '💡 Usage Tips',
+                tip1: '• Click screen to start/pause timer',
+                tip2: '• Add background music by entering YouTube URL at bottom of sidebar',
+                tip3: '• Choose from 5 notification sounds in settings',
+                tip4: '• Set custom times in the Custom tab',
+                close: 'Close'
             }
         };
         
