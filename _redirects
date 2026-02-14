@@ -1,0 +1,16 @@
+# Force www to non-www (명시적 301 리디렉션)
+https://www.mypomodorotimer.org/* https://mypomodorotimer.org/:splat 301!
+http://www.mypomodorotimer.org/* https://mypomodorotimer.org/:splat 301!
+
+# 봇 스캔 경로 차단 (로그 정리용)
+/wp-admin/*      /    404
+/wordpress/*     /    404
+/admin/*         /    404
+/api/*           /    404
+/.env            /    404
+/xmlrpc.php      /    404
+/wp-login.php    /    404
+/phpmyadmin/*    /    404
+
+# SPA fallback (최종)
+/*    /index.html   200
